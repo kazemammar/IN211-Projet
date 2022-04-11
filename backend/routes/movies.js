@@ -31,7 +31,7 @@ router.post("/new", function (req, res) {
       console.error(error);
       if (error.code === "23505") {
         res.status(400).json({
-          message: `User with email "${newMovie.title}" already exists`,
+          message: `Movir with title "${newMovie.title}" already exists`,
         });
       } else {
         res.status(500).json({ message: "Error while creating the movie" });

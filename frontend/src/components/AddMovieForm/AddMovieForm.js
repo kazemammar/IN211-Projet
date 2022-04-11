@@ -1,24 +1,26 @@
 import { useState } from 'react';
 import axios from 'axios';
-import './AddUserForm.css';
+import './AddMovieForm.css';
 
 const DEFAULT_FORM_VALUES = {
     title: '',
     release_date: '',
-    image_url: '',
+    poster_path: '',
+    overview: '',
 };
 
 const useSaveMovie = () => {
     const [movieCreationError, setMovieCreationError] = useState(null);
     const [movieCreationSuccess, setMovieCreationSuccess] = useState(null);
     const displayCreationSuccessMessage = () => {
-        setMovieCreationSuccess('New user created successfully');
+        setMovieCreationSuccess('New movie created successfully');
         setTimeout(() => {
             setMovieCreationSuccess(null);
         }, 3000);
     };
 
     const saveMovie = (event, formValues, setFormValues) => {
+        console.log('formValues', formValues);
         // This avoid page reload
         event.preventDefault();
 
@@ -72,11 +74,12 @@ function AddMovieForm() {
                     onChange={event =>
                         setFormValues({
                             ...formValues,
-                            email: event.target.value,
+                            title: event.target.value,
                         })
                     }
                 />
                 <input
+                    type="date"
                     className="add-movie-input"
                     placeholder="Release date"
                     value={formValues.release_date}
@@ -88,13 +91,14 @@ function AddMovieForm() {
                     }
                 />
                 <input
+                    type="text"
                     className="add-movie-input"
                     placeholder="Image URL"
-                    value={formValues.image_url}
+                    value={formValues.poster_path}
                     onChange={event =>
                         setFormValues({
                             ...formValues,
-                            image_url: event.target.value,
+                            poster_path: event.target.value,
                         })
                     }
                 />
