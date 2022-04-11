@@ -5,6 +5,8 @@ import './App.css';
 import { Root } from './components/Root/Root';
 import Counter from './pages/Counter/Counter';
 import Users from './pages/Users/Users';
+import NewMovie from './pages/Movies/NewMovie';
+import { SingleMovie } from './pages/Movies/SingleMovie';
 
 function App() {
     return (
@@ -14,6 +16,8 @@ function App() {
                 <Route path="counter" element={<Counter />} />
                 <Route path="users" element={<Users />} />
                 <Route path="about" element={<About />} />
+                <Route path="addmovie" element={<NewMovie />} />
+                <Route path="movie/:id/" element={<SingleMovie />} />
             </Routes>
         </Root>
     );
