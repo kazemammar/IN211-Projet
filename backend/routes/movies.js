@@ -15,6 +15,16 @@ router.get("/", function (req, res) {
     });
 });
 
+router.get("/:id", function (req, res) {
+  getRepository(Movie)
+    .find({ id: req.params.id })
+    .then(function (movies) {
+      res.status(200).json({
+        data: { movies: movies },
+      });
+    });
+});
+
 router.post("/new", function (req, res) {
   console.log("create movie", req.body);
   const movieRepository = getRepository(Movie);
