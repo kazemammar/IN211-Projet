@@ -4,7 +4,6 @@ const Movie = new typeorm.EntitySchema({
   columns: {
     id: {
       primary: true,
-      generated: "uuid",
       type: String,
     },
     title: {
@@ -18,6 +17,23 @@ const Movie = new typeorm.EntitySchema({
     poster_path: {
       type: String,
       unique: false,
+      nullable: true,
+    },
+    overview: {
+      type: String,
+    },
+  },
+  relations: {
+    genres: {
+      target: "genres",
+      type: "many-to-many",
+      joinTable: {
+        joinColumn: {
+          name: "movieID",
+          referencedColumnName: "id",
+        },
+      },
+      cascade: false,
     },
   },
 });
