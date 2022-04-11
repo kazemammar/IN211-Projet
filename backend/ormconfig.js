@@ -4,7 +4,7 @@ module.exports = {
   port: 5432,
   username: "postgres",
   password: process.env.DATABASE_PASSWORD,
-  database: "celestin",
+  database: "kazem",
   synchronize: false,
   entities: ["entities/*.js"],
   migrations: ["migrations/*.js"],
