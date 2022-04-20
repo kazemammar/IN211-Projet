@@ -1,14 +1,19 @@
 module.exports = {
   type: "postgres",
-  host: "database-1.cmxb7wpkjrv9.eu-west-1.rds.amazonaws.com",
-  port: 5432,
-  username: "postgres",
-  password: process.env.DATABASE_PASSWORD,
-  database: "kazem",
+  host: process.env.host,
+  port: process.env.port,
+  username: process.env.username,
+  password: process.env.password,
+  database: process.env.database,
   synchronize: false,
   entities: ["entities/*.js"],
   migrations: ["migrations/*.js"],
   cli: {
     migrationsDir: "migrations",
+  },
+  extra: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
   },
 };
