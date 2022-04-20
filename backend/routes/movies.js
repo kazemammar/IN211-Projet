@@ -29,11 +29,11 @@ router.post("/new", function (req, res) {
   console.log("create movie", req.body);
   const movieRepository = getRepository(Movie);
   const newMovie = movieRepository.create({
+    id: req.params.id,
     title: req.body.title,
     release_date: req.body.release_date,
     poster_path: req.body.poster_path,
     overview: req.body.overview,
-    genres: req.body.genres,
   });
   movieRepository
     .insert(newMovie)
