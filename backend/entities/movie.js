@@ -35,6 +35,17 @@ const Movie = new typeorm.EntitySchema({
       },
       cascade: false,
     },
+    user: {
+      target: "User",
+      type: "many-to-many",
+      joinTable: {
+        joinColumn: {
+          name: "movieID",
+          referencedColumnName: "id",
+        },
+      },
+      cascade: false,
+    },
   },
 });
 
