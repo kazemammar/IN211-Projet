@@ -1,11 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import './Home.css';
 import axios from 'axios';
+import { Container, TextField } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import { useFetchMovies } from '../../components/Hooks/useFetchMovies';
 import { Movie } from '../../components/Movie';
 import logo from './logo.svg';
 
+const useStyles = makeStyles(theme => ({
+    App: {
+        marginTop: theme.spacing(1),
+    },
+    searchContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+    },
+}));
+
 function Home() {
+    const classes = useStyles();
     const [movieName, setMovieName] = useState('');
     const handleChange = event => {
         setMovieName(event.target.value);
@@ -34,7 +47,7 @@ function Home() {
     }, [movieName]);
 
     return (
-        <div className="App">
+        <div className={classes.App}>
             {/* {console.log('movies', movies)} */}
             {/* <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
@@ -52,16 +65,20 @@ function Home() {
                 </a>
             </header> */}
             <div>
-                <p>This is my movie Name: {movieName}</p>
-                <form>
-                    <input
-                        type="text"
+                {/* <p>This is my movie Name: {movieName}</p> */}
+                <Container className={classes.searchContainer}>
+                    <TextField
+                        size="small"
+                        id="outlined-basic"
+                        label="Search Movie"
+                        variant="outlined"
                         id="movieName"
+                        color="primary"
                         value={movieName}
                         onChange={handleChange}
                     />
-                </form>
-                <p>This are the movies : </p>
+                </Container>
+                {/* <p>This are the movies : </p> */}
                 {/* {console.log(movieName, movieName === '', movies !== null)} */}
                 <div className="moviesGrid">
                     {movieName === '' ? (

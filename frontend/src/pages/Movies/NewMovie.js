@@ -8,7 +8,6 @@ import AddMovieForm from '../../components/AddMovieForm/AddMovieForm';
 function NewMovie() {
     return (
         <div className="Movies-container">
-            <h1>This page displays the movies</h1>
             <AddMovieForm />
         </div>
     );

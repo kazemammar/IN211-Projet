@@ -1,7 +1,22 @@
 import { useState } from 'react';
 import axios from 'axios';
-import './AddMovieForm.css';
+import {
+    Avatar,
+    Box,
+    Button,
+    Checkbox,
+    Container,
+    CssBaseline,
+    FormControlLabel,
+    Grid,
+    TextField,
+    Typography,
+} from '@mui/material';
 
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+
+import './AddMovieForm.css';
+import { LockOutlined, Movie } from '@mui/icons-material';
 const DEFAULT_FORM_VALUES = {
     title: '',
     release_date: '',
@@ -50,8 +65,8 @@ const useSaveMovie = () => {
 
     return {
         saveMovie: saveMovie,
-        userCreationError: movieCreationError,
-        userCreationSuccess: movieCreationSuccess,
+        movieCreationError: movieCreationError,
+        movieCreationSuccess: movieCreationSuccess,
     };
 };
 
@@ -62,50 +77,114 @@ function AddMovieForm() {
 
     return (
         <div>
-            <form
-                className="add-movie-form"
-                onSubmit={event => saveMovie(event, formValues, setFormValues)}
-            >
-                <input
-                    className="add-movie-input"
-                    type="type"
-                    placeholder="Title"
-                    value={formValues.title}
-                    onChange={event =>
-                        setFormValues({
-                            ...formValues,
-                            title: event.target.value,
-                        })
-                    }
-                />
-                <input
-                    type="date"
-                    className="add-movie-input"
-                    placeholder="Release date"
-                    value={formValues.release_date}
-                    onChange={event =>
-                        setFormValues({
-                            ...formValues,
-                            release_date: event.target.value,
-                        })
-                    }
-                />
-                <input
-                    type="text"
-                    className="add-movie-input"
-                    placeholder="Image URL"
-                    value={formValues.poster_path}
-                    onChange={event =>
-                        setFormValues({
-                            ...formValues,
-                            poster_path: event.target.value,
-                        })
-                    }
-                />
-                <button className="add-user-button" type="submit">
-                    Add movie
-                </button>
-            </form>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <Movie />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Add Movie
+                    </Typography>
+                    <Box
+                        component="form"
+                        noValidate
+                        // onSubmit={handleSubmit}
+                        sx={{ mt: 3 }}
+                    >
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    autoComplete="title"
+                                    name="movieTitle"
+                                    required
+                                    fullWidth
+                                    id="movieTitle"
+                                    label="Movie Title"
+                                    value={formValues.title}
+                                    onChange={event =>
+                                        setFormValues({
+                                            ...formValues,
+                                            title: event.target.value,
+                                        })
+                                    }
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                {/* */}
+                                <TextField
+                                    required
+                                    fullWidth
+                                    type="date"
+                                    id="releaseDate"
+                                    label="Date"
+                                    name="releaseDate"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    value={formValues.release_date}
+                                    onChange={event =>
+                                        setFormValues({
+                                            ...formValues,
+                                            release_date: event.target.value,
+                                        })
+                                    }
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="imageUrl"
+                                    label="Image URL"
+                                    name="imageUrl"
+                                    autoComplete="imageUrl"
+                                    value={formValues.poster_path}
+                                    onChange={event =>
+                                        setFormValues({
+                                            ...formValues,
+                                            poster_path: event.target.value,
+                                        })
+                                    }
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                {movieCreationError !== null && (
+                                    <div className="user-creation-error">
+                                        {movieCreationError}
+                                    </div>
+                                )}
+                            </Grid>
+                            <Grid item xs={12}>
+                                {movieCreationSuccess !== null && (
+                                    <div className="user-creation-success">
+                                        {movieCreationSuccess}
+                                    </div>
+                                )}
+                            </Grid>
+                        </Grid>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                            onClick={event =>
+                                saveMovie(event, formValues, setFormValues)
+                            }
+                        >
+                            Add Movie
+                        </Button>
+                    </Box>
+                </Box>
+            </Container>
             {movieCreationSuccess !== null && (
                 <div className="movie-creation-success">
                     {movieCreationSuccess}
