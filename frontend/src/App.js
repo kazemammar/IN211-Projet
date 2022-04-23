@@ -7,10 +7,12 @@ import Counter from './pages/Counter/Counter';
 import Users from './pages/Users/Users';
 import NewMovie from './pages/Movies/NewMovie';
 import { SingleMovie } from './pages/Movies/SingleMovie';
+import Header from './components/Header/Header';
 
 function App() {
     return (
-        <Root>
+        <>
+            <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="counter" element={<Counter />} />
@@ -19,7 +21,7 @@ function App() {
                 <Route path="addmovie" element={<NewMovie />} />
                 <Route path="movie/:id/" element={<SingleMovie />} />
             </Routes>
-        </Root>
+        </>
     );
 }
 
