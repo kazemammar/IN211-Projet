@@ -1,19 +1,14 @@
 module.exports = {
   type: "postgres",
-  host: process.env.DATABASE_HOSTNAME,
-  port: process.env.DATABASE_PORT,
-  username: process.env.DATABASE_USER,
+  host: "database-1.cmxb7wpkjrv9.eu-west-1.rds.amazonaws.com",
+  port: 5432,
+  username: "postgres",
   password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_BASENAME,
+  database: "celestin",
   synchronize: false,
   entities: ["entities/*.js"],
   migrations: ["migrations/*.js"],
   cli: {
     migrationsDir: "migrations",
-  },
-  extra: {
-    ssl: {
-      rejectUnauthorized: false,
-    },
   },
 };
