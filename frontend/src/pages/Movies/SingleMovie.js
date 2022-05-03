@@ -16,12 +16,12 @@ export function SingleMovie(props) {
 
     useEffect(() => {
         axios
-            .get(`${process.env.REACT_APP_BACKDEND_URL}/${id}`)
+            .get(`${process.env.REACT_APP_BACKDEND_URL}/movies/${id}`)
             .then(res => {
                 setMovie(res.data);
             })
             .catch(error => console.log(error));
-    }, []);
+    }, [id]);
 
     return (
         <>

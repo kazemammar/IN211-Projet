@@ -7,12 +7,13 @@ export function useFetchMovies(friendID) {
     useEffect(() => {
         // console.log('i am using useffect');
         axios
-            .get(
-                `https://api.themoviedb.org/3/movie/popular?api_key=522d421671cf75c2cba341597d86403a&language=en-US`
-            )
+            // .get(
+            //     `https://api.themoviedb.org/3/movie/popular?api_key=522d421671cf75c2cba341597d86403a&language=en-US`
+            // )
+            .get(`${process.env.REACT_APP_BACKDEND_URL}/movies`)
             .then(res => {
                 // console.log('retour', res.data.results);
-                setMovies(res.data.results);
+                setMovies(res.data.data.movies);
             });
     }, []);
     //   console.log('movies', movies);
