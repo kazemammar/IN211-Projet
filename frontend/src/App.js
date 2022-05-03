@@ -19,7 +19,7 @@ function App() {
                 <Route path="users" element={<Users />} />
                 <Route path="about" element={<About />} />
                 <Route path="addmovie" element={<NewMovie />} />
-                <Route path="movie/:id/" element={<SingleMovie />} />
+                <Route path="/movie/:id" element={<SingleMovie />} />
             </Routes>
         </>
     );
