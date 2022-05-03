@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Home.css';
 import axios from 'axios';
-import { Container, TextField } from '@mui/material';
+import { Container, TextField, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useFetchMovies } from '../../components/Hooks/useFetchMovies';
 import { Movie } from '../../components/Movie';
@@ -87,7 +87,7 @@ function Home() {
                     ) : filteredMovies.length > 0 ? (
                         filteredMovies.map(movie => <Movie movie={movie} />)
                     ) : (
-                        <p>No movies found</p>
+                        <Typography variant="body1">No movies found</Typography>
                     )}
                 </div>
             </div>

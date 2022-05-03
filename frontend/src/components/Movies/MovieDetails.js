@@ -11,49 +11,49 @@ import { makeStyles } from '@mui/styles';
 import React from 'react';
 import './MovieDetails.css';
 
+const useStyles = makeStyles(theme => ({
+    card: {
+        marginTop: theme.spacing(1),
+        maxWidth: '100%',
+        // display: 'flex',
+        // flexWrap: 'wrap',
+    },
+
+    image: {
+        maxHeight: '90vh',
+    },
+    about: {
+        [theme.breakpoints.up('md')]: {
+            width: '35%',
+        },
+        [theme.breakpoints.up('lg')]: {
+            width: '50%',
+        },
+    },
+    description: {
+        margin: theme.spacing(1),
+        maxHeight: '90vh',
+
+        // overflowY: 'auto',
+    },
+
+    titleSection: {
+        margin: theme.spacing(1),
+        [theme.breakpoints.up('lg')]: {
+            marginTop: theme.spacing(2),
+            marginBottom: theme.spacing(2),
+        },
+    },
+    descriptionSection: {
+        margin: theme.spacing(1),
+        [theme.breakpoints.up('lg')]: {
+            marginTop: theme.spacing(2),
+        },
+    },
+}));
+
 export default function MovieDetails(props) {
     const { movie } = props;
-
-    const useStyles = makeStyles(theme => ({
-        card: {
-            marginTop: theme.spacing(1),
-            maxWidth: '100%',
-            // display: 'flex',
-            // flexWrap: 'wrap',
-        },
-
-        image: {
-            maxHeight: '90vh',
-        },
-        about: {
-            [theme.breakpoints.up('md')]: {
-                width: '35%',
-            },
-            [theme.breakpoints.up('lg')]: {
-                width: '50%',
-            },
-        },
-        description: {
-            margin: theme.spacing(1),
-            maxHeight: '90vh',
-
-            // overflowY: 'auto',
-        },
-
-        titleSection: {
-            margin: theme.spacing(1),
-            [theme.breakpoints.up('lg')]: {
-                marginTop: theme.spacing(2),
-                marginBottom: theme.spacing(2),
-            },
-        },
-        descriptionSection: {
-            margin: theme.spacing(1),
-            [theme.breakpoints.up('lg')]: {
-                marginTop: theme.spacing(2),
-            },
-        },
-    }));
 
     const classes = useStyles();
 
