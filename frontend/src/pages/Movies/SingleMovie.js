@@ -22,9 +22,9 @@ export function SingleMovie(props) {
 
     return (
         <>
-            {/* <Container maxWidth="lg"> */}
-            <MovieDetails movie={movie}></MovieDetails>
-            {/* </Container> */}
+            <Container maxWidth="lg">
+                <MovieDetails movie={movie}></MovieDetails>
+            </Container>
         </>
     );
 }
