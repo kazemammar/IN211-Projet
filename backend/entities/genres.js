@@ -1,18 +1,16 @@
 const typeorm = require("typeorm");
-const User = new typeorm.EntitySchema({
-  name: "User",
+const Genres = new typeorm.EntitySchema({
+  name: "genres",
   columns: {
     id: {
       primary: true,
       type: String,
     },
-    email: {
+    name: {
       type: String,
       unique: true,
     },
-    firstname: { type: String },
-    lastname: { type: String },
   },
 });
 
-module.exports = User;
+module.exports = Genres;
