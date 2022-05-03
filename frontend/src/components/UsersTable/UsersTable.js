@@ -50,7 +50,6 @@ const useFetchUsers = () => {
             })
             .catch(error => {
                 setUsersLoadingError('An error occured while fetching users.');
-                // console.error(error);
             });
     }, []);
 
