@@ -3,20 +3,11 @@ import Paper from '@mui/material/Paper';
 import './SingleMovie.js';
 import { Container, Grid } from '@mui/material';
 import axios from 'axios';
-
-import { useParams } from 'react-router-dom';
-
-
 import MovieDetails from '../../components/Movies/MovieDetails.js';
 
 export function SingleMovie(props) {
     console.log(props);
-
-    // const { id } = props;
-
-    const { id } = useParams('id');
-
-
+    const { id } = props;
 
     const [movie, setMovie] = useState(null);
 
