@@ -3,16 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const theme = createTheme({});
+const theme = createTheme({
+    palette: {
+        mode: 'dark',
+    },
+});
 
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            {/* <CssBaseline /> */}
             <ThemeProvider theme={theme}>
+                <CssBaseline />
                 <App />
             </ThemeProvider>
         </BrowserRouter>
