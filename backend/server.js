@@ -7,26 +7,19 @@ const usersRouter = require("./routes/users");
 const moviesRouter = require("./routes/movies");
 const routeNotFoundJsonHandler = require("./services/routeNotFoundJsonHandler");
 const jsonErrorHandler = require("./services/jsonErrorHandler");
-const path = require("path");
 
 typeorm.createConnection().then(() => {
   const app = express();
+
   app.use(logger("dev"));
   app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
   // Register routes
-  app.use("api/", indexRouter);
-  app.use("api/users", usersRouter);
-  app.use("api/movies", moviesRouter);
-
-  // Register frontend
-  const publicPath = path.join(__dirname, "public");
-  app.use(express.static(publicPath));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(publicPath, "index.html"));
-  });
+  app.use("/", indexRouter);
+  app.use("/users", usersRouter);
+  app.use("/movies", moviesRouter);
 
   // Register 404 middleware and error handler
   app.use(routeNotFoundJsonHandler); // this middleware must be registered after all routes to handle 404 correctly
