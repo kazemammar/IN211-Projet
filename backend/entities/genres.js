@@ -4,7 +4,8 @@ const Genres = new typeorm.EntitySchema({
   columns: {
     id: {
       primary: true,
-      type: String,
+      type: Number,
+      generated: true,
     },
     name: {
       type: String,
