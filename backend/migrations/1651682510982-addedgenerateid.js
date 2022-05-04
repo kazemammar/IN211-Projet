@@ -1,0 +1,115 @@
+const { MigrationInterface, QueryRunner } = require("typeorm");
+
+module.exports = class addedgenerateid1651682510982 {
+    name = 'addedgenerateid1651682510982'
+
+    async up(queryRunner) {
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" DROP CONSTRAINT "FK_786db630d49cd33f520f93de3e5"`);
+        await queryRunner.query(`ALTER TABLE "genres" DROP CONSTRAINT "PK_80ecd718f0f00dde5d77a9be842"`);
+        await queryRunner.query(`ALTER TABLE "genres" DROP COLUMN "id"`);
+        await queryRunner.query(`ALTER TABLE "genres" ADD "id" SERIAL NOT NULL`);
+        await queryRunner.query(`ALTER TABLE "genres" ADD CONSTRAINT "PK_80ecd718f0f00dde5d77a9be842" PRIMARY KEY ("id")`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" DROP CONSTRAINT "FK_f3a90a5de44f3837e85bb5cc234"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" DROP CONSTRAINT "FK_365b3908fd39cebac6c28215a27"`);
+        await queryRunner.query(`ALTER TABLE "movie" DROP CONSTRAINT "PK_cb3bb4d61cf764dc035cbedd422"`);
+        await queryRunner.query(`ALTER TABLE "movie" DROP COLUMN "id"`);
+        await queryRunner.query(`ALTER TABLE "movie" ADD "id" SERIAL NOT NULL`);
+        await queryRunner.query(`ALTER TABLE "movie" ADD CONSTRAINT "PK_cb3bb4d61cf764dc035cbedd422" PRIMARY KEY ("id")`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" DROP CONSTRAINT "FK_17f6fca57477593364a189e36f5"`);
+        await queryRunner.query(`ALTER TABLE "user" DROP CONSTRAINT "PK_cace4a159ff9f2512dd42373760"`);
+        await queryRunner.query(`ALTER TABLE "user" DROP COLUMN "id"`);
+        await queryRunner.query(`ALTER TABLE "user" ADD "id" SERIAL NOT NULL`);
+        await queryRunner.query(`ALTER TABLE "user" ADD CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id")`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" DROP CONSTRAINT "PK_902fbecbdf1dde4af2ec1cae424"`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" ADD CONSTRAINT "PK_786db630d49cd33f520f93de3e5" PRIMARY KEY ("genresId")`);
+        await queryRunner.query(`DROP INDEX "public"."IDX_f3a90a5de44f3837e85bb5cc23"`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" DROP COLUMN "movieID"`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" ADD "movieID" integer NOT NULL`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" DROP CONSTRAINT "PK_786db630d49cd33f520f93de3e5"`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" ADD CONSTRAINT "PK_902fbecbdf1dde4af2ec1cae424" PRIMARY KEY ("genresId", "movieID")`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" DROP CONSTRAINT "PK_902fbecbdf1dde4af2ec1cae424"`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" ADD CONSTRAINT "PK_f3a90a5de44f3837e85bb5cc234" PRIMARY KEY ("movieID")`);
+        await queryRunner.query(`DROP INDEX "public"."IDX_786db630d49cd33f520f93de3e"`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" DROP COLUMN "genresId"`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" ADD "genresId" integer NOT NULL`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" DROP CONSTRAINT "PK_f3a90a5de44f3837e85bb5cc234"`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" ADD CONSTRAINT "PK_902fbecbdf1dde4af2ec1cae424" PRIMARY KEY ("movieID", "genresId")`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" DROP CONSTRAINT "PK_635d198550b5d0eebdd6ff46985"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" ADD CONSTRAINT "PK_17f6fca57477593364a189e36f5" PRIMARY KEY ("userId")`);
+        await queryRunner.query(`DROP INDEX "public"."IDX_365b3908fd39cebac6c28215a2"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" DROP COLUMN "movieID"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" ADD "movieID" integer NOT NULL`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" DROP CONSTRAINT "PK_17f6fca57477593364a189e36f5"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" ADD CONSTRAINT "PK_635d198550b5d0eebdd6ff46985" PRIMARY KEY ("userId", "movieID")`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" DROP CONSTRAINT "PK_635d198550b5d0eebdd6ff46985"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" ADD CONSTRAINT "PK_365b3908fd39cebac6c28215a27" PRIMARY KEY ("movieID")`);
+        await queryRunner.query(`DROP INDEX "public"."IDX_17f6fca57477593364a189e36f"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" DROP COLUMN "userId"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" ADD "userId" integer NOT NULL`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" DROP CONSTRAINT "PK_365b3908fd39cebac6c28215a27"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" ADD CONSTRAINT "PK_635d198550b5d0eebdd6ff46985" PRIMARY KEY ("movieID", "userId")`);
+        await queryRunner.query(`CREATE INDEX "IDX_f3a90a5de44f3837e85bb5cc23" ON "movie_genres_genres" ("movieID") `);
+        await queryRunner.query(`CREATE INDEX "IDX_786db630d49cd33f520f93de3e" ON "movie_genres_genres" ("genresId") `);
+        await queryRunner.query(`CREATE INDEX "IDX_365b3908fd39cebac6c28215a2" ON "movie_user_user" ("movieID") `);
+        await queryRunner.query(`CREATE INDEX "IDX_17f6fca57477593364a189e36f" ON "movie_user_user" ("userId") `);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" ADD CONSTRAINT "FK_f3a90a5de44f3837e85bb5cc234" FOREIGN KEY ("movieID") REFERENCES "movie"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" ADD CONSTRAINT "FK_786db630d49cd33f520f93de3e5" FOREIGN KEY ("genresId") REFERENCES "genres"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" ADD CONSTRAINT "FK_365b3908fd39cebac6c28215a27" FOREIGN KEY ("movieID") REFERENCES "movie"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" ADD CONSTRAINT "FK_17f6fca57477593364a189e36f5" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
+    }
+
+    async down(queryRunner) {
+        await queryRunner.query(`ALTER TABLE "movie_user_user" DROP CONSTRAINT "FK_17f6fca57477593364a189e36f5"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" DROP CONSTRAINT "FK_365b3908fd39cebac6c28215a27"`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" DROP CONSTRAINT "FK_786db630d49cd33f520f93de3e5"`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" DROP CONSTRAINT "FK_f3a90a5de44f3837e85bb5cc234"`);
+        await queryRunner.query(`DROP INDEX "public"."IDX_17f6fca57477593364a189e36f"`);
+        await queryRunner.query(`DROP INDEX "public"."IDX_365b3908fd39cebac6c28215a2"`);
+        await queryRunner.query(`DROP INDEX "public"."IDX_786db630d49cd33f520f93de3e"`);
+        await queryRunner.query(`DROP INDEX "public"."IDX_f3a90a5de44f3837e85bb5cc23"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" DROP CONSTRAINT "PK_635d198550b5d0eebdd6ff46985"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" ADD CONSTRAINT "PK_365b3908fd39cebac6c28215a27" PRIMARY KEY ("movieID")`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" DROP COLUMN "userId"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" ADD "userId" character varying NOT NULL`);
+        await queryRunner.query(`CREATE INDEX "IDX_17f6fca57477593364a189e36f" ON "movie_user_user" ("userId") `);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" DROP CONSTRAINT "PK_365b3908fd39cebac6c28215a27"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" ADD CONSTRAINT "PK_635d198550b5d0eebdd6ff46985" PRIMARY KEY ("userId", "movieID")`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" DROP CONSTRAINT "PK_635d198550b5d0eebdd6ff46985"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" ADD CONSTRAINT "PK_17f6fca57477593364a189e36f5" PRIMARY KEY ("userId")`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" DROP COLUMN "movieID"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" ADD "movieID" character varying NOT NULL`);
+        await queryRunner.query(`CREATE INDEX "IDX_365b3908fd39cebac6c28215a2" ON "movie_user_user" ("movieID") `);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" DROP CONSTRAINT "PK_17f6fca57477593364a189e36f5"`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" ADD CONSTRAINT "PK_635d198550b5d0eebdd6ff46985" PRIMARY KEY ("movieID", "userId")`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" DROP CONSTRAINT "PK_902fbecbdf1dde4af2ec1cae424"`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" ADD CONSTRAINT "PK_f3a90a5de44f3837e85bb5cc234" PRIMARY KEY ("movieID")`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" DROP COLUMN "genresId"`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" ADD "genresId" character varying NOT NULL`);
+        await queryRunner.query(`CREATE INDEX "IDX_786db630d49cd33f520f93de3e" ON "movie_genres_genres" ("genresId") `);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" DROP CONSTRAINT "PK_f3a90a5de44f3837e85bb5cc234"`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" ADD CONSTRAINT "PK_902fbecbdf1dde4af2ec1cae424" PRIMARY KEY ("genresId", "movieID")`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" DROP CONSTRAINT "PK_902fbecbdf1dde4af2ec1cae424"`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" ADD CONSTRAINT "PK_786db630d49cd33f520f93de3e5" PRIMARY KEY ("genresId")`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" DROP COLUMN "movieID"`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" ADD "movieID" character varying NOT NULL`);
+        await queryRunner.query(`CREATE INDEX "IDX_f3a90a5de44f3837e85bb5cc23" ON "movie_genres_genres" ("movieID") `);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" DROP CONSTRAINT "PK_786db630d49cd33f520f93de3e5"`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" ADD CONSTRAINT "PK_902fbecbdf1dde4af2ec1cae424" PRIMARY KEY ("movieID", "genresId")`);
+        await queryRunner.query(`ALTER TABLE "user" DROP CONSTRAINT "PK_cace4a159ff9f2512dd42373760"`);
+        await queryRunner.query(`ALTER TABLE "user" DROP COLUMN "id"`);
+        await queryRunner.query(`ALTER TABLE "user" ADD "id" character varying NOT NULL`);
+        await queryRunner.query(`ALTER TABLE "user" ADD CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id")`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" ADD CONSTRAINT "FK_17f6fca57477593364a189e36f5" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
+        await queryRunner.query(`ALTER TABLE "movie" DROP CONSTRAINT "PK_cb3bb4d61cf764dc035cbedd422"`);
+        await queryRunner.query(`ALTER TABLE "movie" DROP COLUMN "id"`);
+        await queryRunner.query(`ALTER TABLE "movie" ADD "id" character varying NOT NULL`);
+        await queryRunner.query(`ALTER TABLE "movie" ADD CONSTRAINT "PK_cb3bb4d61cf764dc035cbedd422" PRIMARY KEY ("id")`);
+        await queryRunner.query(`ALTER TABLE "movie_user_user" ADD CONSTRAINT "FK_365b3908fd39cebac6c28215a27" FOREIGN KEY ("movieID") REFERENCES "movie"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" ADD CONSTRAINT "FK_f3a90a5de44f3837e85bb5cc234" FOREIGN KEY ("movieID") REFERENCES "movie"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
+        await queryRunner.query(`ALTER TABLE "genres" DROP CONSTRAINT "PK_80ecd718f0f00dde5d77a9be842"`);
+        await queryRunner.query(`ALTER TABLE "genres" DROP COLUMN "id"`);
+        await queryRunner.query(`ALTER TABLE "genres" ADD "id" character varying NOT NULL`);
+        await queryRunner.query(`ALTER TABLE "genres" ADD CONSTRAINT "PK_80ecd718f0f00dde5d77a9be842" PRIMARY KEY ("id")`);
+        await queryRunner.query(`ALTER TABLE "movie_genres_genres" ADD CONSTRAINT "FK_786db630d49cd33f520f93de3e5" FOREIGN KEY ("genresId") REFERENCES "genres"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
+    }
+}
