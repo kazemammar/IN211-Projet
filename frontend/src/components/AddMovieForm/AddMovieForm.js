@@ -144,13 +144,30 @@ function AddMovieForm() {
                                     fullWidth
                                     id="imageUrl"
                                     label="Image URL"
-                                    name="imageUrl"
+                                    name="poster_path"
                                     autoComplete="imageUrl"
                                     value={formValues.poster_path}
                                     onChange={event =>
                                         setFormValues({
                                             ...formValues,
                                             poster_path: event.target.value,
+                                        })
+                                    }
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="overview"
+                                    label="Overview"
+                                    name="overview"
+                                    autoComplete="overview"
+                                    value={formValues.overview}
+                                    onChange={event =>
+                                        setFormValues({
+                                            ...formValues,
+                                            overview: event.target.value,
                                         })
                                     }
                                 />
