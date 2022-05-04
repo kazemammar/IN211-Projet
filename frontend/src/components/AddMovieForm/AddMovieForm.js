@@ -163,6 +163,7 @@ function AddMovieForm() {
                                     label="Overview"
                                     name="overview"
                                     autoComplete="overview"
+                                    multiline
                                     value={formValues.overview}
                                     onChange={event =>
                                         setFormValues({
