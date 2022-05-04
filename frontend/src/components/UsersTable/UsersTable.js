@@ -43,10 +43,13 @@ const useFetchUsers = () => {
     const [usersLoadingError, setUsersLoadingError] = useState(null);
 
     useEffect(() => {
+        const url = `${process.env.REACT_APP_BACKDEND_URL}/users/`;
         axios
-            .get(`${process.env.REACT_APP_BACKDEND_URL}/users`)
+            .get(url)
             .then(response => {
-                setUsers(response.data.users);
+                if (response.data) {
+                    setUsers(response.data.users);
+                }
             })
             .catch(error => {
                 setUsersLoadingError('An error occured while fetching users.');
