@@ -17,11 +17,11 @@ typeorm.createConnection().then(() => {
   app.use(express.urlencoded({ extended: false }));
 
   // Register routes
-  app.use("api/", indexRouter);
-  app.use("api/users", usersRouter);
-  app.use("api/movies", moviesRouter);
+  app.use("/api/", indexRouter);
+  app.use("/api/users", usersRouter);
+  app.use("/api/movies", moviesRouter);
 
-  // Register frontend
+  // // Register frontend
   const publicPath = path.join(__dirname, "public");
   app.use(express.static(publicPath));
   app.get("*", (req, res) => {
