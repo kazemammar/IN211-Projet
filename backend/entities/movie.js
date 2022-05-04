@@ -4,7 +4,8 @@ const Movie = new typeorm.EntitySchema({
   columns: {
     id: {
       primary: true,
-      type: String,
+      type: "int",
+      generated: true,
     },
     title: {
       type: String,
