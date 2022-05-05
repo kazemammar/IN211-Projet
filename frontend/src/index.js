@@ -6,6 +6,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { UserProvider } from './contexts/UserContext';
 
 const theme = createTheme({
     palette: {
@@ -18,7 +19,9 @@ ReactDOM.render(
         <BrowserRouter>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <App />
+                <UserProvider>
+                    <App />
+                </UserProvider>
             </ThemeProvider>
         </BrowserRouter>
     </React.StrictMode>,

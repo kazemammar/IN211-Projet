@@ -5,6 +5,7 @@ import { Container, Grid } from '@mui/material';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import MovieDetails from '../../components/Movies/MovieDetails.js';
+import useFetchMovie from '../../components/Hooks/useFetchMovie.js';
 
 export function SingleMovie(props) {
     console.log(props);
@@ -12,16 +13,7 @@ export function SingleMovie(props) {
 
     const { id } = useParams('id');
 
-    const [movie, setMovie] = useState(null);
-
-    useEffect(() => {
-        axios
-            .get(`${process.env.REACT_APP_BACKDEND_URL}/movies/${id}`)
-            .then(res => {
-                setMovie(res.data);
-            })
-            .catch(error => console.log(error));
-    }, [id]);
+    const movie = useFetchMovie(id);
 
     return (
         <>

@@ -47,4 +47,18 @@ router.delete("/:userId", function (req, res) {
     });
 });
 
+router.get("/:id", function (req, res) {
+  getRepository(User)
+    .find({ id: req.params.id })
+    .then(function (users) {
+      if (users) {
+        if (users.length > 0) {
+          res.status(200).json({
+            data: users[0],
+          });
+        }
+      }
+    });
+});
+
 module.exports = router;

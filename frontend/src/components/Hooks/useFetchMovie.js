@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { transformMovies } from '../../utility/utility';
 
-export function useFetchMovies(friendID) {
-    const [movies, setMovies] = useState([]);
+export default function useFetchMovie(id) {
+    const [movie, setMovie] = useState([]);
 
     useEffect(() => {
         // console.log('i am using useffect');
@@ -11,15 +11,14 @@ export function useFetchMovies(friendID) {
             // .get(
             //     `https://api.themoviedb.org/3/movie/popular?api_key=522d421671cf75c2cba341597d86403a&language=en-US`
             // )
-            .get(`${process.env.REACT_APP_BACKDEND_URL}/movies`)
+            .get(`${process.env.REACT_APP_BACKDEND_URL}/movies/${id}/`)
             .then(res => {
-                // console.log('retour', res.data.results);
                 var temp_movies = res.data.data.movies;
                 transformMovies(temp_movies);
-                setMovies(temp_movies);
+                setMovie(temp_movies[0]);
             });
-    }, []);
+    }, [id]);
     //   console.log('movies', movies);
 
-    return movies;
+    return movie;
 }

@@ -8,6 +8,7 @@ import Users from './pages/Users/Users';
 import NewMovie from './pages/Movies/NewMovie';
 import { SingleMovie } from './pages/Movies/SingleMovie';
 import Header from './components/Header/Header';
+import LoginPage from './pages/Login/LoginPage';
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/login" element={<LoginPage />} />
                 <Route path="counter" element={<Counter />} />
                 <Route path="users" element={<Users />} />
                 <Route path="about" element={<About />} />

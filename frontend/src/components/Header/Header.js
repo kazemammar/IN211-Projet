@@ -13,6 +13,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import LocalMovies from '@mui/icons-material/LocalMovies';
 import { Link } from 'react-router-dom';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import { makeStyles } from '@mui/styles';
+import { useUser } from '../../contexts/UserContext';
 
 const pages = [
     { name: 'Home', link: '/' },
@@ -21,6 +24,17 @@ const pages = [
     { name: 'About', link: '/about' },
     { name: 'New Novie', link: '/addmovie' },
 ];
+
+const useStyles = makeStyles(theme => ({
+    box: {
+        flexGrow: 1,
+        display: { xs: 'none', md: 'flex' },
+    },
+
+    endBox: {
+        display: { xs: 'none', md: 'flex' },
+    },
+}));
 
 const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -32,6 +46,10 @@ const Header = () => {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+    const classes = useStyles();
+    const userContext = useUser();
+    const { user } = userContext;
+    console.log(user);
 
     return (
         <AppBar position="static">
@@ -67,9 +85,7 @@ const Header = () => {
                             }}
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' },
-                            }}
+                            className={classes.endBox}
                         >
                             {pages.map(page => (
                                 <MenuItem
@@ -105,6 +121,23 @@ const Header = () => {
                                 {page.name}
                             </Button>
                         ))}
+                    </Box>
+                    <Box className={classes.endBox}>
+                        {user !== null && (
+                            <Typography variant="button">
+                                {user.firstname + ' ' + user.lastname}
+                            </Typography>
+                        )}
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            // onClick={handleMenu}
+                            color="inherit"
+                        >
+                            <AccountCircle />
+                        </IconButton>
                     </Box>
                 </Toolbar>
             </Container>

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import axios from 'axios';
 import './UsersTable.css';
@@ -13,6 +12,7 @@ import {
     TableRow,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useFetchUsers } from '../Hooks/useFetchUsers';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -38,27 +38,6 @@ const StyledTable = styled(Table)(({ theme }) => ({
     marginBottom: theme.spacing(1),
 }));
 
-const useFetchUsers = () => {
-    const [users, setUsers] = useState([]);
-    const [usersLoadingError, setUsersLoadingError] = useState(null);
-
-    useEffect(() => {
-        const url = `${process.env.REACT_APP_BACKDEND_URL}/users/`;
-        axios
-            .get(url)
-            .then(response => {
-                if (response.data) {
-                    setUsers(response.data.users);
-                }
-            })
-            .catch(error => {
-                setUsersLoadingError('An error occured while fetching users.');
-            });
-    }, []);
-
-    return { users, usersLoadingError };
-};
-
 function UsersTable() {
     const { users, usersLoadingError } = useFetchUsers();
 
@@ -75,7 +54,7 @@ function UsersTable() {
                 >
                     <TableHead>
                         <TableRow>
-                            <StyledTableCell align="center">
+                            <StyledTableCell align="left">
                                 Email
                             </StyledTableCell>
                             <StyledTableCell align="center">
@@ -84,7 +63,7 @@ function UsersTable() {
                             <StyledTableCell align="center">
                                 Last name
                             </StyledTableCell>
-                            <StyledTableCell align="center">
+                            <StyledTableCell align="right">
                                 Delete
                             </StyledTableCell>
                         </TableRow>
@@ -95,10 +74,10 @@ function UsersTable() {
                                 <StyledTableCell component="th" scope="row">
                                     {user.email}
                                 </StyledTableCell>
-                                <StyledTableCell align="right">
+                                <StyledTableCell align="center">
                                     {user.firstname}
                                 </StyledTableCell>
-                                <StyledTableCell align="right">
+                                <StyledTableCell align="center">
                                     {user.lastname}
                                 </StyledTableCell>
                                 <StyledTableCell align="right">
