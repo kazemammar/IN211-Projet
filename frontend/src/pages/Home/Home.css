@@ -45,8 +45,13 @@
     align-items: stretch;
     justify-content: center;
     align-items: baseline;
+    margin: 0px;
 }
 
 .moviesGrid>.movie {
     margin: 10px;
+}
+
+.Container {
+    padding: 0px;
 }
