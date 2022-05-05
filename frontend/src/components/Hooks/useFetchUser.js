@@ -7,12 +7,12 @@ export const useFetchUser = id => {
 
     useEffect(() => {
         if (id) {
-            const url = `${process.env.REACT_APP_BACKDEND_URL}/users/${id}/`;
+            const url = `${process.env.REACT_APP_BACKDEND_URL}/users/${id}`;
             axios
                 .get(url)
                 .then(response => {
                     if (response.data) {
-                        if (response.data.length > 0) {
+                        if (response.data.user) {
                             setUser(response.data.user);
                         }
                     }

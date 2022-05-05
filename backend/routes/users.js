@@ -54,7 +54,7 @@ router.get("/:id", function (req, res) {
       if (users) {
         if (users.length > 0) {
           res.status(200).json({
-            data: { user: users[0] },
+            user: users[0],
           });
         }
       }
