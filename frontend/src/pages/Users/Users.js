@@ -13,9 +13,11 @@ import Button from '@mui/material/Button';
 import { Add, Login } from '@mui/icons-material/';
 import AddUserForm from '../../components/AddUserForm/AddUserForm';
 import UsersTable from '../../components/UsersTable/UsersTable';
+import LoginDialog from '../../components/Login/LoginDialog';
 
 function Users() {
     const [openSignUp, setOpenSignUp] = useState(false);
+    const [openLogin, setOpenLogin] = useState(false);
 
     const handleClickOpen = () => {
         setOpenSignUp(true);
@@ -33,20 +35,23 @@ function Users() {
                     <Button
                         variant="outlined"
                         startIcon={<Add />}
-                        onClick={() => {
-                            setOpenSignUp(true);
-                        }}
+                        onClick={handleClickOpen}
                     >
                         New User
                     </Button>
                 </Grid>
                 <Grid item>
-                    <Button variant="outlined" startIcon={<Login />} onClick>
+                    <Button
+                        variant="outlined"
+                        startIcon={<Login />}
+                        onClick={() => {
+                            setOpenLogin(true);
+                        }}
+                    >
                         Log In
                     </Button>
                 </Grid>
                 <Dialog open={openSignUp} onClose={handleClose}>
-                    <DialogTitle>Subscribe</DialogTitle>
                     <DialogContent>
                         <AddUserForm />
                     </DialogContent>
@@ -54,6 +59,7 @@ function Users() {
                         <Button onClick={handleClose}>Cancel</Button>
                     </DialogActions>
                 </Dialog>
+                <LoginDialog open={openLogin} setOpen={setOpenLogin} />
             </Grid>
         </Container>
     );

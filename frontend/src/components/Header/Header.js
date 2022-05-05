@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { makeStyles } from '@mui/styles';
 import { useUser } from '../../contexts/UserContext';
+import LoginDialog from '../Login/LoginDialog';
 
 const pages = [
     { name: 'Home', link: '/' },
@@ -42,6 +43,7 @@ const Header = () => {
     const handleOpenNavMenu = event => {
         setAnchorElNav(event.currentTarget);
     };
+    const [loginDialogOpen, setLoginDialogOpen] = React.useState(false);
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
@@ -133,11 +135,17 @@ const Header = () => {
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
-                            // onClick={handleMenu}
+                            onClick={() => {
+                                setLoginDialogOpen(true);
+                            }}
                             color="inherit"
                         >
                             <AccountCircle />
                         </IconButton>
+                        <LoginDialog
+                            open={loginDialogOpen}
+                            setOpen={setLoginDialogOpen}
+                        />
                     </Box>
                 </Toolbar>
             </Container>

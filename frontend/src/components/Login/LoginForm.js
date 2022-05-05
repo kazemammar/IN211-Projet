@@ -26,13 +26,13 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
     },
 
-    button: { marginTop: 3 },
+    button: { margin: theme.spacing(3, 0, 2) },
 
     root: {
         width: '100%',
         gridRow: 1,
         // maxWidth: '36ch',
-        backgroundColor: theme.palette.background.paper,
+        // backgroundColor: theme.palette.background.paper,
     },
     inline: {
         display: 'inline',
@@ -45,15 +45,16 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
     },
 }));
-export default function LoginForm() {
+export default function LoginForm(props) {
     const classes = useStyles();
-
+    const { onClose } = props;
     const { users } = useFetchUsers();
     const [newId, setNewId] = useState(null);
     const { connectUser } = useUser();
 
     const connect = () => {
         connectUser(newId);
+        onClose();
     };
 
     return (
@@ -119,15 +120,16 @@ export default function LoginForm() {
                 </List>
             </Box>
             {newId !== null && (
-                <Button
-                    className={classes.button}
-                    color="secondary"
-                    fullWidth
-                    variant="contained"
-                    onClick={connect}
-                >
-                    Sign Up
-                </Button>
+                <div className={classes.button}>
+                    <Button
+                        color="secondary"
+                        fullWidth
+                        variant="contained"
+                        onClick={connect}
+                    >
+                        Sign Up
+                    </Button>
+                </div>
             )}
         </Container>
     );

@@ -13,12 +13,17 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { makeStyles } from '@mui/styles';
 
 const DEFAULT_FORM_VALUES = {
     email: '',
     firstname: '',
     lastname: '',
 };
+
+const useStyles = makeStyles(theme => ({
+    confirmButton: { margin: theme.spacing(3, 0, 2) },
+}));
 
 const useSaveUser = () => {
     const [userCreationError, setUserCreationError] = useState(null);
@@ -29,6 +34,8 @@ const useSaveUser = () => {
             setUserCreationSuccess(null);
         }, 3000);
     };
+
+    const classes = useStyles();
 
     const saveUser = (event, formValues, setFormValues) => {
         // This avoid page reload
@@ -61,6 +68,8 @@ const useSaveUser = () => {
 function AddUserForm() {
     const [formValues, setFormValues] = useState(DEFAULT_FORM_VALUES);
     const { saveUser, userCreationError, userCreationSuccess } = useSaveUser();
+
+    const classes = useStyles();
 
     return (
         <div>
@@ -163,17 +172,19 @@ function AddUserForm() {
                                 )}
                             </Grid>
                         </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                            onClick={event =>
-                                saveUser(event, formValues, setFormValues)
-                            }
-                        >
-                            Sign Up
-                        </Button>
+                        <div className={classes.confirmButton}>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                className={classes.confirmButton}
+                                onClick={event =>
+                                    saveUser(event, formValues, setFormValues)
+                                }
+                            >
+                                Sign Up
+                            </Button>
+                        </div>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link href="#" variant="body2">
