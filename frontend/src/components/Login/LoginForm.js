@@ -119,8 +119,8 @@ export default function LoginForm(props) {
                     ))}
                 </List>
             </Box>
-            {newId !== null && (
-                <div className={classes.button}>
+            <div className={classes.button}>
+                {newId !== null ? (
                     <Button
                         color="secondary"
                         fullWidth
@@ -129,8 +129,17 @@ export default function LoginForm(props) {
                     >
                         Sign Up
                     </Button>
-                </div>
-            )}
+                ) : (
+                    <Button
+                        color="secondary"
+                        fullWidth
+                        variant="contained"
+                        disabled
+                    >
+                        Sign Up
+                    </Button>
+                )}
+            </div>
         </Container>
     );
 }
