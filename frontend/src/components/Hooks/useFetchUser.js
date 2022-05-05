@@ -13,7 +13,7 @@ export const useFetchUser = id => {
                 .then(response => {
                     if (response.data) {
                         if (response.data.length > 0) {
-                            setUser(response.data.users[0]);
+                            setUser(response.data.user);
                         }
                     }
                 })
