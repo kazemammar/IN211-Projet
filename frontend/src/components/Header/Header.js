@@ -18,6 +18,7 @@ import { makeStyles } from '@mui/styles';
 import { useUser } from '../../contexts/UserContext';
 import LoginDialog from '../Login/LoginDialog';
 import NoPaddingContainer from '../Elements/NoPaddingContainer';
+import './Header.css';
 
 const pages = [
     { name: 'Home', link: '/' },
@@ -58,57 +59,59 @@ const Header = () => {
         <AppBar position="static">
             <NoPaddingContainer>
                 <Toolbar disableGutters>
+                    <div className="NavMenu">
+                        <Box
+                            sx={{
+                                // flexGrow: 1,
+                                display: { xs: 'flex', md: 'none' },
+                            }}
+                        >
+                            <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleOpenNavMenu}
+                                color="inherit"
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorElNav}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }}
+                                open={Boolean(anchorElNav)}
+                                onClose={handleCloseNavMenu}
+                                className={classes.endBox}
+                            >
+                                {pages.map(page => (
+                                    <MenuItem
+                                        component={Link}
+                                        name={page.link}
+                                        key={page.link}
+                                        onClick={handleCloseNavMenu}
+                                        to={page.link}
+                                    >
+                                        <Typography textAlign="center">
+                                            {page.name}
+                                        </Typography>
+                                    </MenuItem>
+                                ))}
+                            </Menu>
+                        </Box>
+                        <LocalMovies />
+                    </div>
                     <Box
                         sx={{
-                            flexGrow: 1,
-                            display: { xs: 'flex', md: 'none' },
-                        }}
-                    >
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            className={classes.endBox}
-                        >
-                            {pages.map(page => (
-                                <MenuItem
-                                    component={Link}
-                                    name={page.link}
-                                    key={page.link}
-                                    onClick={handleCloseNavMenu}
-                                    to={page.link}
-                                >
-                                    <Typography textAlign="center">
-                                        {page.name}
-                                    </Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
-                    <LocalMovies />
-                    <Box
-                        sx={{
-                            flexGrow: 1,
+                            // flexGrow: 1,
                             display: { xs: 'none', md: 'flex' },
                         }}
                     >
@@ -119,13 +122,17 @@ const Header = () => {
                                 name={page.link}
                                 key={page.link}
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                sx={{
+                                    my: 2,
+                                    color: 'white',
+                                    display: 'block',
+                                }}
                             >
                                 {page.name}
                             </Button>
                         ))}
                     </Box>
-                    <Box className={classes.endBox}>
+                    <Box /* className={classes.endBox} */>
                         {user !== null && (
                             <Typography variant="button">
                                 {user.firstname + ' ' + user.lastname}
