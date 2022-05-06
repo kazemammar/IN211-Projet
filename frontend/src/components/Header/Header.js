@@ -17,6 +17,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import { makeStyles } from '@mui/styles';
 import { useUser } from '../../contexts/UserContext';
 import LoginDialog from '../Login/LoginDialog';
+import NoPaddingContainer from '../Elements/NoPaddingContainer';
 
 const pages = [
     { name: 'Home', link: '/' },
@@ -55,7 +56,7 @@ const Header = () => {
 
     return (
         <AppBar position="static">
-            <Container maxWidth="xl">
+            <NoPaddingContainer>
                 <Toolbar disableGutters>
                     <Box
                         sx={{
@@ -148,7 +149,7 @@ const Header = () => {
                         />
                     </Box>
                 </Toolbar>
-            </Container>
+            </NoPaddingContainer>
         </AppBar>
     );
 };

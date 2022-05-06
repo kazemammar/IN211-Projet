@@ -4,7 +4,17 @@ import axios from 'axios';
 import {
     AppBar,
     Container,
+    Divider,
+    FormControl,
+    FormControlLabel,
+    FormLabel,
+    Grid,
+    IconButton,
     InputBase,
+    Menu,
+    MenuItem,
+    Radio,
+    RadioGroup,
     TextField,
     Toolbar,
     Typography,
@@ -12,9 +22,30 @@ import {
 import { makeStyles } from '@mui/styles';
 import { alpha, styled } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
+import { Box } from '@mui/system';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { useFetchMovies } from '../../components/Hooks/useFetchMovies';
 import { Movie } from '../../components/Movie';
 import logo from './logo.svg';
+import NoPaddingContainer from '../../components/Elements/NoPaddingContainer';
+import RadioMenu from '../../components/Elements/RadioMenu';
+import {
+    orderedAlphabeticalCompare,
+    orderedDateCompare,
+    reversedAlphabeticalCompare,
+    reversedDateCompare,
+} from '../../utility/utility';
+
+const sortValues = ['Alphabetical', 'Date'];
+const orderValues = ['Ordered', 'Reversed'];
+
+const sortCompareFunctions = {
+    Alphabetical: {
+        Ordered: orderedAlphabeticalCompare,
+        Reversed: reversedAlphabeticalCompare,
+    },
+    Date: { Ordered: orderedDateCompare, Reversed: reversedDateCompare },
+};
 
 const useStyles = makeStyles(theme => ({
     App: {
@@ -22,10 +53,17 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         justifyContent: 'center',
     },
-    Container: {
-        maxWidth: `${theme.breakpoints.values.xl}px`,
-        padding: 0,
+    AppBarField: {
+        paddingRight: theme.spacing(1),
+    },
+    SecondAppBar: {
         margin: 0,
+    },
+    menus: {
+        display: 'flex',
+        [theme.breakpoints.down('md')]: {
+            display: 'none',
+        },
     },
 }));
 
@@ -70,6 +108,24 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 function Home() {
+    const [anchorElFilter, setAnchorElFilter] = React.useState(null);
+    const handleOpenFilterMenu = event => {
+        setAnchorElFilter(event.currentTarget);
+    };
+    const handleCloseFilterMenu = () => {
+        setAnchorElFilter(null);
+    };
+
+    const [sortValue, setSortValue] = useState('Alphabetical');
+    const handleSortChange = event => {
+        setSortValue(event.target.value);
+    };
+
+    const [orderValue, setOrderValue] = useState('Ordered');
+    const handleOrderChange = event => {
+        setOrderValue(event.target.value);
+    };
+
     const classes = useStyles();
     const [movieName, setMovieName] = useState('');
     const handleChange = event => {
@@ -81,7 +137,9 @@ function Home() {
     const filter = () => {
         // console.log('filter');
         if (movieName === '') {
-            setFilteredMovies([]);
+            setFilteredMovies([
+                ...movies.sort(sortCompareFunctions[sortValue][orderValue]),
+            ]);
 
             return;
         }
@@ -94,33 +152,27 @@ function Home() {
         setFilteredMovies(temp);
     };
 
+    const order = () => {
+        // console.log('filter');
+        var temp = filteredMovies;
+        const callback = sortCompareFunctions[sortValue][orderValue];
+        temp.sort(callback);
+        setFilteredMovies([...temp]);
+    };
+
     useEffect(() => {
         filter();
-    }, [movieName]);
+    }, [movieName, movies]);
+
+    useEffect(() => {
+        order();
+    }, [orderValue, sortValue]);
 
     return (
         <div className={classes.App}>
-            {/* {console.log('movies', movies)} */}
-            {/* <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header> */}
-
-            {/* <p>This is my movie Name: {movieName}</p> */}
-            <div className={classes.Container}>
-                <AppBar position="static">
-                    <Toolbar variant="dense">
+            <NoPaddingContainer>
+                <AppBar className={classes.SecondAppBar} position="static">
+                    <Toolbar variant="dense" className="secondToolBar">
                         {' '}
                         <Search value={movieName} onChange={handleChange}>
                             <SearchIconWrapper>
@@ -131,6 +183,66 @@ function Home() {
                                 inputProps={{ 'aria-label': 'search' }}
                             />
                         </Search>
+                        <Box
+                            sx={{
+                                // flexGrow: 1,
+                                display: { xs: 'flex', md: 'none' },
+                            }}
+                        >
+                            <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleOpenFilterMenu}
+                                color="inherit"
+                            >
+                                <FilterAltIcon />
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorElFilter}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }}
+                                open={Boolean(anchorElFilter)}
+                                onClose={handleCloseFilterMenu}
+                            >
+                                <RadioMenu
+                                    name={'Sort'}
+                                    value={sortValue}
+                                    onChange={handleSortChange}
+                                    values={sortValues}
+                                />
+                                <RadioMenu
+                                    name={'Order'}
+                                    value={orderValue}
+                                    onChange={handleOrderChange}
+                                    values={orderValues}
+                                />
+                            </Menu>
+                        </Box>
+                        <div className={classes.menus}>
+                            <RadioMenu
+                                name={'Sort'}
+                                value={sortValue}
+                                onChange={handleSortChange}
+                                values={sortValues}
+                            />
+                            <Divider />
+                            <RadioMenu
+                                name={'Order'}
+                                value={orderValue}
+                                onChange={handleOrderChange}
+                                values={orderValues}
+                            />
+                        </div>
                     </Toolbar>
                 </AppBar>
                 {/* <TextField
@@ -144,16 +256,13 @@ function Home() {
                     onChange={handleChange}
                 /> */}
                 <div className="moviesGrid">
-                    {movieName === '' ? (
-                        movies !== null &&
-                        movies.map(movie => <Movie movie={movie} />)
-                    ) : filteredMovies.length > 0 ? (
+                    {filteredMovies.length > 0 ? (
                         filteredMovies.map(movie => <Movie movie={movie} />)
                     ) : (
                         <Typography variant="body1">No movies found</Typography>
                     )}
                 </div>
-            </div>
+            </NoPaddingContainer>
             {/* <p>This are the movies : </p> */}
             {/* {console.log(movieName, movieName === '', movies !== null)} */}
         </div>

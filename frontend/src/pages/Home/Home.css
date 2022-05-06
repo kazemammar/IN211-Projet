@@ -55,3 +55,26 @@
 .Container {
     padding: 0px;
 }
+
+.flexDisplay {
+    display: flex;
+}
+
+.horizontalAlign {
+    display: flex;
+    align-items: center;
+}
+
+.secondToolBar {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.OrderMenu {
+    display: flex;
+    wrap: wrap;
+    align-items: center;
+
+}

@@ -21,3 +21,24 @@ export const transformMovies = movies => {
         }
     }
 };
+
+export const orderedAlphabeticalCompare = (elt1, elt2) => {
+    return elt1.title.localeCompare(elt2.title, undefined, { numeric: true });
+};
+export const reversedAlphabeticalCompare = (elt1, elt2) => {
+    return elt2.title.localeCompare(elt1.title, undefined, { numeric: true });
+};
+export const orderedDateCompare = (elt1, elt2) => {
+    if (elt1.release_date < elt2.release_date) {
+        return -1;
+    } else {
+        return 1;
+    }
+};
+export const reversedDateCompare = (elt1, elt2) => {
+    if (elt1.release_date < elt2.release_date) {
+        return 1;
+    } else {
+        return -1;
+    }
+};
