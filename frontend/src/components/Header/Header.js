@@ -107,36 +107,49 @@ const Header = () => {
                                 ))}
                             </Menu>
                         </Box>
-                        <LocalMovies />
+                        <LocalMovies
+                            sx={{
+                                marginLeft: 1,
+                            }}
+                        />
+                        <Box
+                            sx={{
+                                // flexGrow: 1,
+                                display: { xs: 'none', md: 'flex' },
+                                // display: 'flex',
+                            }}
+                        >
+                            {pages.map(page => (
+                                <Button
+                                    component={Link}
+                                    to={page.link}
+                                    name={page.link}
+                                    key={page.link}
+                                    onClick={handleCloseNavMenu}
+                                    sx={{
+                                        my: 2,
+                                        color: 'white',
+                                        display: 'block',
+                                    }}
+                                >
+                                    {page.name}
+                                </Button>
+                            ))}
+                        </Box>
                     </div>
-                    <Box
-                        sx={{
-                            // flexGrow: 1,
-                            display: { xs: 'none', md: 'flex' },
-                        }}
+
+                    <Box /* className={classes.endBox} */
+                        sx={{ /* display: 'flex', */ aliginItems: 'center' }}
                     >
-                        {pages.map(page => (
+                        {user !== null && (
                             <Button
-                                component={Link}
-                                to={page.link}
-                                name={page.link}
-                                key={page.link}
-                                onClick={handleCloseNavMenu}
-                                sx={{
-                                    my: 2,
-                                    color: 'white',
-                                    display: 'block',
+                                variant="button"
+                                onClick={() => {
+                                    setLoginDialogOpen(true);
                                 }}
                             >
-                                {page.name}
-                            </Button>
-                        ))}
-                    </Box>
-                    <Box /* className={classes.endBox} */>
-                        {user !== null && (
-                            <Typography variant="button">
                                 {user.firstname + ' ' + user.lastname}
-                            </Typography>
+                            </Button>
                         )}
                         <IconButton
                             size="large"
@@ -150,11 +163,11 @@ const Header = () => {
                         >
                             <AccountCircle />
                         </IconButton>
-                        <LoginDialog
-                            open={loginDialogOpen}
-                            setOpen={setLoginDialogOpen}
-                        />
                     </Box>
+                    <LoginDialog
+                        open={loginDialogOpen}
+                        setOpen={setLoginDialogOpen}
+                    />
                 </Toolbar>
             </NoPaddingContainer>
         </AppBar>
