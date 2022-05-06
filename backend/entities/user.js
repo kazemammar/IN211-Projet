@@ -1,3 +1,4 @@
+// import { Movie } from "./movie";
 const typeorm = require("typeorm");
 const User = new typeorm.EntitySchema({
   name: "User",

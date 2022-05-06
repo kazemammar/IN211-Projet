@@ -12,24 +12,24 @@ const Review = new typeorm.EntitySchema({
       default: 5,
     },
     comment: {
-      type: "string",
+      type: "varchar",
       nullable: true,
     },
   },
   relations: {
+    movie: {
+      type: "many-to-one",
+      target: "movie",
+      joinColumn: {
+        name: "movie_id",
+      },
+      inverseSide: "reviews",
+    },
     user: {
       type: "many-to-one",
       target: "User",
       joinColumn: {
         name: "user_id",
-      },
-      inverseSide: "reviews",
-    },
-    movie: {
-      type: "many-to-one",
-      target: "Movie",
-      joinColumn: {
-        name: "movie_id",
       },
       inverseSide: "reviews",
     },

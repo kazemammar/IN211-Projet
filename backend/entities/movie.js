@@ -47,10 +47,9 @@ const Movie = new typeorm.EntitySchema({
       },
       cascade: false,
     },
-
     review: {
-      type: "one_to_many",
       target: "Review",
+      type: "one_to_many",
       cascade: true,
       inverseSide: "movies",
     },
