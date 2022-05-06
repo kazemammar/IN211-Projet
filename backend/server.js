@@ -5,6 +5,7 @@ const typeorm = require("typeorm");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const moviesRouter = require("./routes/movies");
+const reviewsRouter = require("./routes/reviews");
 const routeNotFoundJsonHandler = require("./services/routeNotFoundJsonHandler");
 const jsonErrorHandler = require("./services/jsonErrorHandler");
 const path = require("path");
@@ -20,6 +21,7 @@ typeorm.createConnection().then(() => {
   app.use("/api/", indexRouter);
   app.use("/api/users", usersRouter);
   app.use("/api/movies", moviesRouter);
+  app.use("/api/reviews", reviewsRouter);
 
   // // Register frontend
   const publicPath = path.join(__dirname, "public");
