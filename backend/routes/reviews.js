@@ -39,7 +39,7 @@ router.post("/new", function (req, res) {
     mark: req.body.mark,
     comment: req.body.comment,
     user: user,
-    mmovie: movie,
+    movie: movie,
   });
 
   reviewRepository
