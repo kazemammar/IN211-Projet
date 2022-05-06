@@ -14,6 +14,14 @@ const User = new typeorm.EntitySchema({
     firstname: { type: String },
     lastname: { type: String },
   },
+  relations: {
+    review: {
+      type: "one_to_many",
+      target: "Review",
+      cascade: true,
+      inverseSide: "users",
+    },
+  },
 });
 
 module.exports = User;
