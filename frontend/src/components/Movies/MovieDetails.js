@@ -105,7 +105,7 @@ export default function MovieDetails(props) {
                                     </Typography>
                                 </div>
                                 <div>
-                                    <ReviewsSection />
+                                    <ReviewsSection movie_id={movie.id} />
                                 </div>
                             </div>
                         </Paper>
