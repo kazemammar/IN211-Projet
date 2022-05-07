@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get("/:movie_id/", function (req, res) {
   getRepository(Review)
-    .find({ relations: ["movie"], movie_id: req.params.movie_id })
+    .find({ relations: ["movie", "user"], movie_id: req.params.movie_id })
     .then(function (reviews) {
       res.json({ reviews: reviews });
     });

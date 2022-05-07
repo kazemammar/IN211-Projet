@@ -11,6 +11,7 @@ import { makeStyles } from '@mui/styles';
 import React, { useEffect, useState } from 'react';
 import './MovieDetails.css';
 import { displayDate } from '../../utility/utility';
+import ReviewsSection from '../Reviews/ReviewsSection';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -102,6 +103,9 @@ export default function MovieDetails(props) {
                                     <Typography variant="body1">
                                         {movie.overview}
                                     </Typography>
+                                </div>
+                                <div>
+                                    <ReviewsSection />
                                 </div>
                             </div>
                         </Paper>
