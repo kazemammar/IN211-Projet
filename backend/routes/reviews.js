@@ -5,9 +5,9 @@ const User = require("../entities/user");
 const Movie = require("../entities/movie");
 const router = express.Router();
 
-router.get("/:user_id/", function (req, res) {
+router.get("/:movie_id/", function (req, res) {
   getRepository(Review)
-    .find({ relations: ["user"], user_id: req.params.user_id })
+    .find({ relations: ["movie"], movie_id: req.params.movie_id })
     .then(function (reviews) {
       res.json({ reviews: reviews });
     });
