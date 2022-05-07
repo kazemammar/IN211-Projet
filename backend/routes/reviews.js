@@ -57,7 +57,7 @@ router.post("/new", function (req, res) {
                   });
                   return;
                 }
-                if (users.length > 0) {
+                if (movies.length > 0) {
                   movie = movies[0];
                 } else {
                   res.status(404).json({
@@ -95,5 +95,14 @@ router.post("/new", function (req, res) {
       }
     });
 });
-
+router.delete("/delete/:review_id/", function (req, res) {
+  getRepository(Review)
+    .delete({ id: req.params.review_id })
+    .then(function () {
+      res.status(200).json({ message: "Review successfully deleted" });
+    })
+    .catch(function () {
+      res.status(500).json({ message: "Error while deleting the review" });
+    });
+});
 module.exports = router;
