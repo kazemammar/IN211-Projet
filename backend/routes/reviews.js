@@ -14,6 +14,7 @@ router.get("/:movie_id/", function (req, res) {
 });
 
 router.post("/new", function (req, res) {
+  // console.log(req)
   const reviewRepository = getRepository(Review);
   reviewRepository
     .find({
