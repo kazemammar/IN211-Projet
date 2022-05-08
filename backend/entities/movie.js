@@ -50,7 +50,7 @@ const Movie = new typeorm.EntitySchema({
     review: {
       target: "Review",
       type: "one_to_many",
-      cascade: true,
+      cascade: "delete",
       inverseSide: "movies",
     },
   },

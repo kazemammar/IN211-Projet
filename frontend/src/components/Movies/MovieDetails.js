@@ -10,6 +10,7 @@ import {
 import { makeStyles } from '@mui/styles';
 import React, { useEffect, useState } from 'react';
 import './MovieDetails.css';
+import { MovieSharp } from '@mui/icons-material';
 import { displayDate } from '../../utility/utility';
 import ReviewsSection from '../Reviews/ReviewsSection';
 
@@ -98,7 +99,12 @@ export default function MovieDetails(props) {
                                         color="text.secondary"
                                         component="div"
                                     >
-                                        {displayDate(movie.release_date)}
+                                        {displayDate(movie.release_date) +
+                                            ' — ' +
+                                            (movie.genres &&
+                                                movie.genres.map(
+                                                    genre => `${genre.name} `
+                                                ))}
                                     </Typography>
                                 </div>
                                 <div className={classes.subSection}>
