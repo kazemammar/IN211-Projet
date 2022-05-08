@@ -22,7 +22,8 @@ const useStyles = makeStyles(theme => ({
     },
 
     image: {
-        maxHeight: '90vh',
+        // maxHeight: '90vh',
+        marginTop: theme.spacing(1),
     },
     about: {
         [theme.breakpoints.up('md')]: {
@@ -31,12 +32,16 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.up('lg')]: {
             width: '50%',
         },
+        // overflowY: 'auto',
+        padding: 0,
     },
     description: {
-        margin: theme.spacing(1),
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        // padding: theme.spacing(0),
         maxHeight: '90vh',
-
-        // overflowY: 'auto',
+        scrollbarWidth: 'thin',
+        overflowY: 'auto',
     },
 
     titleSection: {
@@ -46,8 +51,8 @@ const useStyles = makeStyles(theme => ({
             marginBottom: theme.spacing(2),
         },
     },
-    descriptionSection: {
-        margin: theme.spacing(1),
+    subSection: {
+        margin: theme.spacing(0),
         [theme.breakpoints.up('lg')]: {
             marginTop: theme.spacing(2),
         },
@@ -69,7 +74,7 @@ export default function MovieDetails(props) {
         <div>
             {movie && (
                 <div className="SingleMovieRoot">
-                    <div>
+                    <div className={classes.image}>
                         <img
                             className="DetailsPoster"
                             component="img"
@@ -96,7 +101,7 @@ export default function MovieDetails(props) {
                                         {displayDate(movie.release_date)}
                                     </Typography>
                                 </div>
-                                <div className={classes.descriptionSection}>
+                                <div className={classes.subSection}>
                                     <Typography variant="h5" component="h2">
                                         Description
                                     </Typography>
@@ -104,7 +109,10 @@ export default function MovieDetails(props) {
                                         {movie.overview}
                                     </Typography>
                                 </div>
-                                <div>
+                                <div className={classes.subSection}>
+                                    <Typography variant="h5" component="h2">
+                                        Reviews
+                                    </Typography>
                                     <ReviewsSection movie_id={movie.id} />
                                 </div>
                             </div>

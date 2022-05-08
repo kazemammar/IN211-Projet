@@ -13,12 +13,20 @@ import {
 import axios from 'axios';
 import React, { Fragment, useState } from 'react';
 import SendIcon from '@mui/icons-material/Send';
+import { makeStyles } from '@mui/styles';
 import { useUser } from '../../contexts/UserContext';
 import { useFetchReviews } from '../Hooks/useFetchReviews';
 import MarkInput from './MarkInput';
 import ReviewMark from './ReviewMark';
 
+const useStyles = makeStyles(theme => ({
+    textField: {
+        marginTop: theme.spacing(1),
+    },
+}));
+
 export default function ReviewsSection(props) {
+    const classes = useStyles();
     const { movie_id } = props;
     const { reviews, reviewsLoadingError, append } = useFetchReviews(movie_id);
     const { user } = useUser();
@@ -63,13 +71,16 @@ export default function ReviewsSection(props) {
                     There was an error while loading the reviews...
                 </Typography>
             ) : (
-                <List /* className={classes.root} */>
+                <List>
                     {reviews &&
                         reviews.map(review => (
                             <>
                                 <ListItem alignItems="flex-start">
-                                    <Grid container>
-                                        <Grid item>
+                                    <Grid
+                                        container
+                                        justifyContent="space-between"
+                                    >
+                                        <Grid item className="flexDisplay">
                                             <ListItemAvatar>
                                                 <Avatar
                                                     alt={
@@ -90,7 +101,6 @@ export default function ReviewsSection(props) {
                                                         <Typography
                                                             component="span"
                                                             variant="body2"
-                                                            // className={classes.inline}
                                                             color="textPrimary"
                                                         >
                                                             {review.user.email}
@@ -118,11 +128,13 @@ export default function ReviewsSection(props) {
                             secondary={
                                 <form
                                     noValidate
-                                    // className={classes.form}
+                                    className={classes.form}
                                     autoComplete="off"
                                     onSubmit={postReview}
                                 >
                                     <TextField
+                                        className={classes.textField}
+                                        multiline
                                         fullWidth
                                         value={myComment}
                                         size="small"
@@ -136,15 +148,25 @@ export default function ReviewsSection(props) {
                         />
                     </ListItem>
                     <ListItem>
-                        <MarkInput mark={myMark} setMark={setMyMark} />
+                        <Grid
+                            container
+                            justifyContent="space-between"
+                            alignItems="baseline"
+                        >
+                            <Grid item>
+                                <MarkInput mark={myMark} setMark={setMyMark} />
+                            </Grid>
+                            <Grid item>
+                                <Button
+                                    variant="outlined"
+                                    onClick={postReview}
+                                    startIcon={<SendIcon />}
+                                >
+                                    Submit a review
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </ListItem>
-                    <Button
-                        variant="outlined"
-                        onClick={postReview}
-                        startIcon={<SendIcon />}
-                    >
-                        Submit a review
-                    </Button>
                 </List>
             )}
         </>
