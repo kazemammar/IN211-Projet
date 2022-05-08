@@ -29,18 +29,23 @@ export default function ReviewsSection(props) {
     const postReview = () => {
         if (user) {
             const url = `${process.env.REACT_APP_BACKDEND_URL}/reviews/new`;
-            const form = {
+            var form = {
                 user: user.id,
                 mark: myMark,
                 comment: myComment,
                 movie: movie_id,
             };
             axios
-                .post(url)
+                .post(url, form)
                 .then(res => {
                     if (res.status === 200) {
                         setMyComment('');
+                    } else if (res.status === 201) {
+                        setMyComment('');
+                        form.user = user;
                         append(form);
+                    } else if (res.status === 401) {
+                        console.log(res.message);
                     }
                 })
                 .catch(res => {
