@@ -8,8 +8,12 @@ const router = express.Router();
 router.get("/:movie_id/", function (req, res) {
   getRepository(Review)
     .find({
-      relations: ["movie", "user"],
-      movie_id: req.params.movie_id,
+      relations: ["user"],
+      where: {
+        movie: {
+          id: req.params.movie_id,
+        },
+      },
     }) /* a modifier  */
     .then(function (reviews) {
       res.json({ reviews: reviews });

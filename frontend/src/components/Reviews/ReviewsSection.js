@@ -1,5 +1,6 @@
 import {
     Avatar,
+    Button,
     Divider,
     Grid,
     List,
@@ -11,6 +12,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import React, { Fragment, useState } from 'react';
+import SendIcon from '@mui/icons-material/Send';
 import { useUser } from '../../contexts/UserContext';
 import { useFetchReviews } from '../Hooks/useFetchReviews';
 import MarkInput from './MarkInput';
@@ -130,6 +132,13 @@ export default function ReviewsSection(props) {
                     <ListItem>
                         <MarkInput mark={myMark} setMark={setMyMark} />
                     </ListItem>
+                    <Button
+                        variant="outlined"
+                        onClick={postReview}
+                        startIcon={<SendIcon />}
+                    >
+                        Submit a review
+                    </Button>
                 </List>
             )}
         </>
