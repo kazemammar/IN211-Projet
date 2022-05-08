@@ -26,19 +26,15 @@ router.post("/new", function (req, res) {
   genreRepository
     .find({
       where: {
-        user: req.body.name,
+        name: req.body.name,
       },
     })
     .then((genres) => {
       if (genres.length > 0) {
         const genre = genres[0];
-        genre.mark = req.body.mark;
-        genre.comment = req.body.comment;
-        genreRepository
-          .save(genre)
-          .then(
-            res.status(200).json({ message: "genre updated successfully" })
-          );
+
+        res.status(200).json({ message: "Your genre already exists " });
+
         // .catch(
         //   res.status(500).json({
         //     mmessage:
