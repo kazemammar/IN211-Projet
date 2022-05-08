@@ -1,12 +1,17 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useUser } from '../../contexts/UserContext';
 
 export const useFetchReviews = id => {
     const [reviews, setReviews] = useState(null);
     const [reviewsLoadingError, setReviewsLoadingError] = useState(null);
+    const [refreshFetch, setRefreshFetch] = useState(false);
+    const refresh = () => {
+        setRefreshFetch(true);
+    };
 
     useEffect(() => {
-        if (id) {
+        if (id && refreshFetch) {
             const url = `${process.env.REACT_APP_BACKDEND_URL}/reviews/${id}/`;
             axios
                 .get(url)
@@ -22,8 +27,13 @@ export const useFetchReviews = id => {
                         'An error occured while fetching reviews.'
                     );
                 });
+            setRefreshFetch(false);
         }
-    }, [id]);
+    }, [id, refreshFetch]);
 
-    return { reviews: reviews, reviewsLoadingError: reviewsLoadingError };
+    return {
+        reviews: reviews,
+        reviewsLoadingError: reviewsLoadingError,
+        refresh: refresh,
+    };
 };

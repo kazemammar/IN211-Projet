@@ -20,7 +20,7 @@ import ReviewMark from './ReviewMark';
 
 export default function ReviewsSection(props) {
     const { movie_id } = props;
-    const { reviews, reviewsLoadingError } = useFetchReviews(movie_id);
+    const { reviews, reviewsLoadingError, refresh } = useFetchReviews(movie_id);
     const { user } = useUser();
 
     const [myComment, setMyComment] = useState('');
@@ -40,6 +40,7 @@ export default function ReviewsSection(props) {
                 .then(res => {
                     if (res.status === 200) {
                         setMyComment('');
+                        refresh();
                     }
                 })
                 .catch(res => {
