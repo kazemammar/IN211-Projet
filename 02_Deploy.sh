@@ -10,4 +10,4 @@ cp -R frontend/build/ backend/public/
 echo "done"
 git add *
 git commit -m "New prod version"
-git push main
+git push
