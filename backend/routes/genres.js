@@ -5,20 +5,13 @@ const User = require("../entities/user");
 const Movie = require("../entities/movie");
 const router = express.Router();
 
-// router.get("/:genre_id/", function (req, res) {
-//   getRepository(Genre)
-//     .find({
-//       relations: ["movie"],
-//       where: {
-//         movie: {
-//           id: req.params.genre_id,
-//         },
-//       },
-//     }) /* a modifier  */
-//     .then(function (genres) {
-//       res.json({ genres: genres });
-//     });
-// });
+router.get("/", function (req, res) {
+  getRepository(Genre)
+    .find({})
+    .then(function (genres) {
+      res.json({ genres: genres });
+    });
+});
 
 router.post("/new", function (req, res) {
   // console.log(req)
