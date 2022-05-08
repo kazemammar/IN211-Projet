@@ -17,7 +17,12 @@ router.get("/", function (req, res) {
 
 router.get("/:id", function (req, res) {
   getRepository(Movie)
-    .find({ id: req.params.id })
+    .find({
+      relations: ["genres"],
+      where: {
+        id: req.params.id,
+      },
+    })
     .then(function (movies) {
       res.status(200).json({
         data: { movies: movies },
@@ -43,7 +48,7 @@ router.post("/new", function (req, res) {
       console.error(error);
       if (error.code === "23505") {
         res.status(400).json({
-          message: `Movir with title "${newMovie.title}" already exists`,
+          message: `Movie with title "${newMovie.title}" already exists`,
         });
       } else {
         res.status(500).json({ message: "Error while creating the movie" });
