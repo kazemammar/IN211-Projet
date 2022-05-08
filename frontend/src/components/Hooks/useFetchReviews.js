@@ -6,12 +6,12 @@ export const useFetchReviews = id => {
     const [reviews, setReviews] = useState(null);
     const [reviewsLoadingError, setReviewsLoadingError] = useState(null);
     const [refreshFetch, setRefreshFetch] = useState(false);
-    const refresh = () => {
-        setRefreshFetch(true);
+    const append = review => {
+        setReviews([...reviews, review]);
     };
 
     useEffect(() => {
-        if (id && refreshFetch) {
+        if (id) {
             const url = `${process.env.REACT_APP_BACKDEND_URL}/reviews/${id}/`;
             axios
                 .get(url)
@@ -34,6 +34,6 @@ export const useFetchReviews = id => {
     return {
         reviews: reviews,
         reviewsLoadingError: reviewsLoadingError,
-        refresh: refresh,
+        append: append,
     };
 };
