@@ -98,7 +98,8 @@ export default function MovieDetails(props) {
                                         color="text.secondary"
                                         component="div"
                                     >
-                                        {displayDate(movie.release_date)}
+                                        {displayDate(movie.release_date) +
+                                            ' -- '}
                                     </Typography>
                                 </div>
                                 <div className={classes.subSection}>
