@@ -25,9 +25,14 @@ router.post("/new", function (req, res) {
   const reviewRepository = getRepository(Review);
   reviewRepository
     .find({
-      relations: ["user", "movie"],
-      user_id: req.body.user,
-      movie_id: req.body.movie,
+      where: {
+        user: {
+          id: req.body.user,
+        },
+        movie: {
+          id: req.body.movie,
+        },
+      },
     })
     .then((reviews) => {
       if (reviews.length > 0) {
